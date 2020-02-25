@@ -24,16 +24,14 @@ build:
 requirements:
   build:
     - {{posix}}zip               # [win]
-
   host:
     - r-base
     - r-cluster
-    - r-dummies
-
+    - r-plyr
   run:
     - r-base
     - r-cluster
-    - r-dummies
+    - r-plyr
 
 test:
   commands:
