@@ -1,4 +1,4 @@
-{% set version = "2.1.3" %}
+{% set version = "2.1.4" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/nomclust_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/nomclust/nomclust_{{ version }}.tar.gz
-  sha256: 2cc87f090168ad1817344f4521bb2df98a00f351344b6a7ba140c005ab131e00
+  sha256: 5580cd281886dc53b0f23c83b6102e97e17624242f572ecc6f6bfd40369bf50b
 
 build:
   merge_build_host: true  # [win]
