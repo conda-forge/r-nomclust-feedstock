@@ -5,11 +5,9 @@ Home: https://CRAN.R-project.org/package=nomclust
 
 Package license: GPL (>= 2)
 
-Feedstock license: BSD 3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-nomclust-feedstock/blob/master/LICENSE.txt)
 
 Summary: Package for hierarchical clustering of objects characterized by nominal variables.
-
-
 
 Current build status
 ====================
