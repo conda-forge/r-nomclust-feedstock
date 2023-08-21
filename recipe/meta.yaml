@@ -1,4 +1,4 @@
-{% set version = "2.6.2" %}
+{% set version = "2.8.0" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,27 +10,38 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/nomclust_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/nomclust/nomclust_{{ version }}.tar.gz
-  sha256: 2bede3cdabc3101422e635129ef764f6455fba9399958150d02ace88b7d8fd9a
+  sha256: fb4a6e550ec987937b2a6b6737e298ef742a02da4076d911a92d46e2d41789ae
 
 build:
   merge_build_host: true  # [win]
-  number: 1
-  noarch: generic
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ posix }}filesystem        # [win]
+    - {{ posix }}make
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
+    - r-rcpp >=0.11.0
+    - r-clvalid
     - r-cluster
-    - r-plyr
   run:
     - r-base
+    - {{ native }}gcc-libs         # [win]
+    - r-rcpp >=0.11.0
+    - r-clvalid
     - r-cluster
-    - r-plyr
 
 test:
   commands:
@@ -40,28 +51,14 @@ test:
 about:
   home: https://CRAN.R-project.org/package=nomclust
   license: GPL-2.0-or-later
-  summary: Package for hierarchical clustering of objects characterized by nominal variables.
-  license_family: GPL3
+  summary: Similarity measures for hierarchical clustering of objects characterized by nominal
+    (categorical) variables. Evaluation criteria for nominal data clustering.
+  license_family: GPL2
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
     - conda-forge/r
     - uday1889
-
-# Package: nomclust
-# Title: Hierarchical Nominal Clustering Package
-# Authors@R: c(person("Zdenek", "Sulc", role = c("aut", "cre"), email = "zdenek.sulc@vse.cz"), person("Hana", "Rezankova", role = "aut", email = "hana.rezankova@vse.cz"))
-# Author: Zdenek Sulc [aut, cre], Hana Rezankova [aut]
-# Maintainer: Zdenek Sulc <zdenek.sulc@vse.cz>
-# Version: 1.1.1106
-# Date: 2017-6-6
-# Description: Package for hierarchical clustering of objects characterized by nominal variables.
-# Imports: cluster, dummies
-# License: GPL (>= 2)
-# RoxygenNote: 6.0.1
-# NeedsCompilation: no
-# Packaged: 2017-06-06 14:41:21 UTC; zdenek
-# Repository: CRAN
-# Date/Publication: 2017-06-06 14:51:41 UTC
